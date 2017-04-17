@@ -499,17 +499,6 @@
    (setq dired-listing-switches "-Al --si --time-style long-iso")
    (setq delete-by-moving-to-trash t)
 
-;; Put these auto-generated files in a folder ignored by git
-(setq recentf-save-file "~/.emacs.d/.autogeneres")
-(setq tramp-persistency-file-name "~/.emacs.d/.autogeneres")
-(setq backup-directory-alist '(".*" . "~/.emacs.d/.autogeneres/backups"))
-(setq ido-save-directory-list-file "~/.emacs.d/.autogeneres/ido-last")
-(setq auto-save-list-file-prefix "~/.emacs.d/.autogeneres/auto-save-list/saves")
-(setq projectile-cache-file "~/.emacs.d/.autogeneres/projectile.cache")
-(setq projectile-known-projects-file "~/.emacs.d/.autogeneres/projectile-bookmarks.eld")
-(setq eshell-history-file-name "~/.emacs.d/.autogeneres/eshell/history")
-(setq eshell-last-dir-ring-file-name "~/.emacs.d/.autogeneres/eshell/lastdir")
-
 ;;;; Web-mode 
    (require 'web-mode)
    (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))

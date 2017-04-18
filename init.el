@@ -350,7 +350,7 @@
 
    ;;open agenda in current window
    (setq org-agenda-window-setup (quote other-frame))
-   (setq org-agenda-restore-windows-after-quit )				;
+   (setq org-agenda-restore-windows-after-quit t)				;
 
    ;; warn me of any deadlines in next 7 days
    (setq org-deadline-warning-days 7)

@@ -325,8 +325,8 @@
 
 ;; Autofill
    ;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
-   ;; (add-hook 'fill-nobreak-predicate 'fill-french-nobreak-p)
-   ;; (add-hook 'fill-nobreak-predicate 'fill-single-word-nobreak-p)
+   (add-hook 'fill-nobreak-predicate 'fill-french-nobreak-p)
+   (add-hook 'fill-nobreak-predicate 'fill-single-word-nobreak-p)
 
    ;; Remove auto-fill on text modes (rely on wrapping modes)
    (remove-hook 'text-mode-hook #'turn-on-auto-fill)

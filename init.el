@@ -509,6 +509,14 @@
    (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
    (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
+   ;; Auto-complete in web-mode is now context-aware. 
+   (setq web-mode-ac-sources-alist
+      '(("css" . (ac-source-words-in-buffer ac-source-css-property))
+        ("html" . (ac-source-words-in-buffer ac-source-abbrev))
+        ("php" . (ac-source-words-in-buffer
+                  ac-source-words-in-same-mode-buffers
+                  ac-source-dictionary))))
+
    (defun my-setup-php ()
      (web-mode)
      ;; make these variables local

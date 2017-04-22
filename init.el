@@ -572,7 +572,7 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    (vector "#eaeaea" "#d54e53" "#b9ca4a" "#e7c547" "#7aa6da" "#c397d8" "#70c0b1" "#000000"))
- '(backup-directory-alist (quote ((".*bufni.*" . "/tmp"))))
+ '(backup-directory-alist (quote (("." . "/home/vic/.emacs.d/backups/"))))
  '(delete-selection-mode t)
  '(dired-dwim-target t)
  '(eww-search-prefix "https://www.google.com/search?q=")

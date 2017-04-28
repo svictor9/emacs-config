@@ -492,6 +492,10 @@
 
 ;;;;; End Python customizations
 
+;;;;; Multi-term
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+
 ;;;;; Dired
    ;; -si for human readable size time-style for yyyy-mm-dd
    (setq dired-listing-switches "-Al --si --time-style long-iso")
@@ -579,6 +583,9 @@
  '(fci-rule-color "#424242")
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(nxml-slash-auto-complete-flag t)
+ '(package-selected-packages
+   (quote
+    (web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-file-suffixes (quote ("~" "#" ".bak")))
  '(shift-select-mode nil)
  '(tool-bar-mode nil)

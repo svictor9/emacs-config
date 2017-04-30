@@ -477,7 +477,12 @@
 
    (require 'elpy)
    (elpy-enable)
-   (elpy-use-ipython)
+   ;; Really need Ipython?
+   ;; (elpy-use-ipython)
+   ;; If ipython, also set the following for ipython ≥ 5 
+   (setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--simple-prompt -i")
+
 
    ;; Enable flycheck for elpy
    (when (require 'flycheck nil t)

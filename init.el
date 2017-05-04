@@ -462,6 +462,8 @@
    (global-set-key "\C-xf" 'recentf-open-files)
    (global-set-key (kbd "C-ç") 'comment-dwim-2)
 
+   (global-set-key "\M-n" 'forward-paragraph)
+   (global-set-key "\M-p" 'backward-paragraph)
 
    (add-hook 'after-init-hook 'global-company-mode)
    (eval-after-load 'company

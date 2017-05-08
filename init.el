@@ -475,6 +475,8 @@
    (when (fboundp 'windmove-default-keybindings)
      (windmove-default-keybindings))
 
+   (global-set-key (kbd "C-x g") 'magit-status)
+
 ;;;;; Start Python customizations
 
    (require 'elpy)
@@ -591,7 +593,7 @@
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-file-suffixes (quote ("~" "#" ".bak")))
  '(shift-select-mode nil)
  '(tool-bar-mode nil)

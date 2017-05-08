@@ -1,0 +1,17 @@
+.autogeneres/
+auto-save-list/
+backups/
+bookmarks
+eshell/
+network-security.data
+projectile*
+*recentf*
+*~
+**/*~
+snippets/
+tramp
+url/
+ac-comphist.dat
+image-dired/
+#*
+**/#*

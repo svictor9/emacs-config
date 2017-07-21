@@ -584,7 +584,7 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    (vector "#eaeaea" "#d54e53" "#b9ca4a" "#e7c547" "#7aa6da" "#c397d8" "#70c0b1" "#000000"))
- '(backup-directory-alist (quote (("." . "/home/vic/.emacs.d/backups/"))))
+ '(backup-directory-alist (quote ((".*" . "/home/vic/.emacs.d/backups/"))))
  '(delete-selection-mode t)
  '(dired-dwim-target t)
  '(eww-search-prefix "https://www.google.com/search?q=")
@@ -594,6 +594,9 @@
  '(package-selected-packages
    (quote
     (magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+ '(projectile-globally-ignored-directories
+   (quote
+    ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))
  '(projectile-globally-ignored-file-suffixes (quote ("~" "#" ".bak")))
  '(shift-select-mode nil)
  '(tool-bar-mode nil)

@@ -299,7 +299,7 @@
 
 
    (setq message-send-mail-function 'message-send-mail-with-sendmail)
-   (setq sendmail-program "~/.mail/rc-bin/msmtpq"
+   (setq sendmail-program "~/.mail/rc-bin/msmtp-enqueue.sh"
    ;; (setq sendmail-program "msmtp"
 	 mail-specify-envelope-from t
    ;; needed for debians message.el cf. README.Debian.gz 

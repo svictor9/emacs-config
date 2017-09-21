@@ -35,6 +35,10 @@
    (helm-mode 1)
    (helm-autoresize-mode t)
 
+   ;; Add attachments to emails with helm-locate
+   (helm-add-action-to-source "Attach to Email" #'mml-attach-file
+                           helm-source-locate)
+
 ;; Projectile et helm-projectile
    (projectile-mode)
    (setq projectile-completion-system 'helm)
@@ -299,7 +303,7 @@
 
 
    (setq message-send-mail-function 'message-send-mail-with-sendmail)
-   (setq sendmail-program "~/.mail/rc-bin/msmtp-enqueue.sh"
+   (setq sendmail-program "/home/vic/bin/msmtp-enqueue.sh"
    ;; (setq sendmail-program "msmtp"
 	 mail-specify-envelope-from t
    ;; needed for debians message.el cf. README.Debian.gz 

@@ -333,8 +333,12 @@
    (add-hook 'fill-nobreak-predicate 'fill-single-word-nobreak-p)
 
    ;; Remove auto-fill on text modes (rely on wrapping modes)
-   (remove-hook 'text-mode-hook #'turn-on-auto-fill)
-   (setq sentence-end-double-space nil)
+   ;; (remove-hook 'text-mode-hook #'turn-on-auto-fill)
+   ;; (setq sentence-end-double-space nil)
+
+;; <RET> or Ctrl-o to insert hard new lines (never filled)
+   (use-hard-newlines t)
+   (setq mu4e-compose-format-flowed t)
 
 ;;;;;;;;;;;;;;; Start OrgMode
 
@@ -601,7 +605,7 @@
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))

@@ -467,9 +467,11 @@
    (global-set-key (kbd "<f5>") 'winner-undo)
    (global-set-key (kbd "<f6>") 'winner-redo)
 
-   (global-set-key "\C-xf" 'recentf-open-files)
    (global-set-key (kbd "C-ç") 'comment-dwim-2)
 
+   ;; Rebind M-q to the org function which seems to work better in mails etc.
+   (global-set-key (kbd "M-q") 'org-fill-paragraph)
+		
    (global-set-key "\M-n" 'forward-paragraph)
    (global-set-key "\M-p" 'backward-paragraph)
 
@@ -597,6 +599,10 @@
     ((".*" "~/.emacs.d/.autogeneres/auto-save-files/" t))))
  '(auto-save-list-file-prefix "~/.emacs.d/.autogeneres/auto-save-list/saves-")
  '(backup-directory-alist (quote ((".*" . "/home/vic/.emacs.d/backups/"))))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-blue)))
+ '(custom-safe-themes
+   (quote
+    ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
  '(delete-selection-mode t)
  '(dired-dwim-target t)
  '(eww-search-prefix "https://www.google.com/search?q=")

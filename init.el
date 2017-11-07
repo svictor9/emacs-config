@@ -11,14 +11,15 @@
 ;; Theme
    (load-theme 'sanityinc-tomorrow-night t)
 
-
 ;; Helm mode
    (require 'helm-config)
    (global-set-key (kbd "M-x") 'helm-M-x)
    (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
    (global-set-key (kbd "C-x C-f") 'helm-find-files)
+   (global-set-key (kbd "C-x f") 'helm-for-files)
    (global-set-key (kbd "C-x C-b") 'helm-mini)
    (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+   (setq helm-ff-skip-boring-files t)
 
    (add-hook 'eshell-mode-hook
 	     (lambda ()
@@ -452,6 +453,9 @@
 ;; Never ask long confirmations
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; Alternate PDF renderer
+(pdf-tools-install)
+ 
 ;;;;;;; Some custom keybindings
 
    (progn
@@ -599,10 +603,10 @@
     ((".*" "~/.emacs.d/.autogeneres/auto-save-files/" t))))
  '(auto-save-list-file-prefix "~/.emacs.d/.autogeneres/auto-save-list/saves-")
  '(backup-directory-alist (quote ((".*" . "/home/vic/.emacs.d/backups/"))))
- '(custom-enabled-themes (quote (sanityinc-tomorrow-blue)))
+ '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
  '(delete-selection-mode t)
  '(dired-dwim-target t)
  '(eww-search-prefix "https://www.google.com/search?q=")
@@ -611,7 +615,7 @@
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))

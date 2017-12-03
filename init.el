@@ -415,7 +415,8 @@
     org-icalendar-use-scheduled (quote (event-if-not-todo todo-start))
     ;; org-icalendar-use-scheduled (quote (nil))
     org-log-done (quote time)
-    org-replace-disputed-keys nil)
+    org-replace-disputed-keys nil
+    org-export-html-postamble nil)
 
    ;; this hook saves an ics file once an org-buffer is saved
    (defun my-icalendar-agenda-export()
@@ -441,6 +442,8 @@
      (set (make-variable-buffer-local 'org-agenda-skip-function)
 	  org-agenda-skip-function)
      (set (make-variable-buffer-local 'org-deadline-warning-days) org-deadline-warning-days))
+
+(setq org-html-postamble nil)
 
    ;; Make windmove work in org-mode:
           (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -517,6 +520,8 @@
 ;;;;; Multi-term
 (require 'multi-term)
 (setq multi-term-program "/bin/bash")
+(global-set-key (kbd "<f8>") 'multi-term-dedicated-toggle)
+(setq multi-term-dedicated-select-after-open-p t)
 
 ;;;;; Dired
    ;; -si for human readable size time-style for yyyy-mm-dd

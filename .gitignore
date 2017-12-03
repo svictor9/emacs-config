@@ -2,6 +2,7 @@
 auto-save-list/
 backups/
 bookmarks
+elpa/archives/
 eshell/
 network-security.data
 projectile*

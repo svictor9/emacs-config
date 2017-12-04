@@ -338,7 +338,7 @@
    ;; (setq sentence-end-double-space nil)
 
 ;; <RET> or Ctrl-o to insert hard new lines (never filled)
-   (use-hard-newlines t)
+   (setq-default use-hard-newlines t)
    (setq mu4e-compose-format-flowed t)
 
 ;;;;;;;;;;;;;;; Start OrgMode

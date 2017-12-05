@@ -618,6 +618,7 @@
  '(fci-rule-color "#424242")
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(nxml-slash-auto-complete-flag t)
+ '(org-export-backends (quote (ascii html icalendar latex odt)))
  '(package-selected-packages
    (quote
     (pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))

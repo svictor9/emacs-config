@@ -337,6 +337,16 @@
    ;; (remove-hook 'text-mode-hook #'turn-on-auto-fill)
    ;; (setq sentence-end-double-space nil)
 
+(defvar V-syntax-table
+  (let ((table (make-syntax-table)))
+    (modify-syntax-entry ?’ "w" table)
+    (modify-syntax-entry ?« "($" table)
+    (modify-syntax-entry ?» ")^" table)
+    table))
+
+(add-hook 'text-mode-hook (lambda ()
+			    (set-syntax-table V-syntax-table)))
+
 ;; <RET> or Ctrl-o to insert hard new lines (never filled)
    (setq-default use-hard-newlines t)
    (setq mu4e-compose-format-flowed t)

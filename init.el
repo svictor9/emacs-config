@@ -9,7 +9,7 @@
    (package-initialize)
 
 ;; Theme
-   (load-theme 'sanityinc-tomorrow-night t)
+   (load-theme 'sanityinc-tomorrow-eighties t)
 
 ;; Helm mode
    (require 'helm-config)
@@ -627,6 +627,7 @@
     ((".*" "~/.emacs.d/.autogeneres/auto-save-files/" t))))
  '(auto-save-list-file-prefix "~/.emacs.d/.autogeneres/auto-save-list/saves-")
  '(backup-directory-alist (quote ((".*" . "/home/vic/.emacs.d/backups/"))))
+ '(beacon-color "#f2777a")
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
  '(custom-safe-themes
    (quote
@@ -635,6 +636,7 @@
  '(dired-dwim-target t)
  '(eww-search-prefix "https://www.google.com/search?q=")
  '(fci-rule-color "#424242")
+ '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(nxml-slash-auto-complete-flag t)
  '(org-export-backends (quote (ascii html icalendar latex odt)))

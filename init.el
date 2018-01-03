@@ -1,12 +1,12 @@
 ;; Packages
    (require 'package)
-   (package-initialize)
    (add-to-list 'load-path "~/.emacs.d/myModes")
    (add-to-list 'load-path "~/.emacs.d/elpa/")
    (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			    ;; ("marmalade" . "https://marmalade-repo.org/packages/")
 			    ("melpa" . "https://melpa.org/packages/")
 			    ("org" . "http://orgmode.org/elpa/")))
+   (package-initialize)
 
 ;; Theme
    (load-theme 'sanityinc-tomorrow-night t)
@@ -428,6 +428,15 @@
     org-replace-disputed-keys nil
     org-export-html-postamble nil)
 
+    ;; Org-caldav configuration
+(require 'org-caldav)
+(setq
+ org-caldav-url "https://framagenda.org/remote.php/dav/calendars/svictor"
+ org-caldav-calendar-id "tests"
+ org-caldav-inbox "/home/vic/bin/org_cal/vic_cal.org"
+ org-caldav-files '("/home/vic/bin/org_cal/vic_mobile.org"))
+ 
+
    ;; this hook saves an ics file once an org-buffer is saved
    (defun my-icalendar-agenda-export()
      (when (string= (buffer-file-name) "/home/vic/org/vic.org")
@@ -631,7 +640,7 @@
  '(org-export-backends (quote (ascii html icalendar latex odt)))
  '(package-selected-packages
    (quote
-    (pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))

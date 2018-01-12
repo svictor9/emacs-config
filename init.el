@@ -375,7 +375,15 @@
 
    ;; warn me of any deadlines in next 7 days
    (setq org-deadline-warning-days 7)
-   (setq org-agenda-start-on-weekday 1) 
+(setq org-agenda-start-on-weekday 1)
+
+;; Localize calendar for French. Cf https://www.emacswiki.org/emacs/CalendarLocalization#toc9
+  (setq calendar-week-start-day 1
+          calendar-day-name-array ["Dimanche" "Lundi" "Mardi" "Mercredi"
+                                   "Jeudi" "Vendredi" "Samedi"]
+          calendar-month-name-array ["Janvier" "Février" "Mars" "Avril" "Mai"
+                                     "Juin" "Juillet" "Août" "Septembre"
+                                        "Octobre" "Novembre" "Décembre"])
 
    (setq org-agenda-custom-commands
 	 '(("v" "Mon agenda" agenda ""

@@ -346,6 +346,8 @@
 
 (add-hook 'text-mode-hook (lambda ()
 			    (set-syntax-table V-syntax-table)))
+(add-hook 'text-mode-hook #'turn-on-visual-line-mode)
+
 
 ;; <RET> or Ctrl-o to insert hard new lines (never filled)
    (setq-default use-hard-newlines t)
@@ -379,7 +381,7 @@
 	 '(("v" "Mon agenda" agenda ""
 	    ((org-agenda-ndays 7)          ;; agenda will start in week view
 	     (org-agenda-repeating-timestamp-show-all t)   ;; ensures that repeating events appear on all relevant dates
-	     (org-agenda-files '("~/org/vic.org")) ;; Only my own agenda
+	     (org-agenda-files '("vic_cal.org", "vic_mobile.org")) ;; Only my own agenda
 	     (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled)))) ;; limits agenda view to timestamped items
 	   ("e" "Avec Estelle et Arthur" agenda ""
 	    ((org-agenda-ndays 7)          ;; agenda will start in week view
@@ -396,21 +398,27 @@
    (setq org-default-notes-file (concat org-directory "/notes.org"))
 
    (setq org-capture-templates
-	 '(("e" "event" entry (file "vic.org")
+	 '(("e" "event" entry (file "victor.org")
 	    "* %^{Heading} %i %?\n %^t \n %a\n")
-	   ("t" "todo" entry (file+headline "~/org/todo.org" "En général")
+	   ("t" "todo" entry (file+headline "general.org" "À faire")
 	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")
-	   ("a" "todo audio" entry (file+headline "~/org/todo.org" "Audio")
-	    "* TODO [#B] %i %a\n")
+	   ("n" "notes" entry (file+headline "notes.org" "Notes")
+	    "* %i \n %a\n")
+	   ("m" "todo mails" entry (file+headline "mails.org" "Mails")
+	    "* TODO %? \nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))\n%a\n")
+	   ("a" "anthro" entry (file+headline "anthro.org" "Anthro")
+	    "* TODO %i %?\n\nSCHEDULED: %^t\n %a\n")
+	   ("A" "Audio")
+	   ("an" "audio notes" entry (file+headline "audio.org" "Audio notes")
+	    "* %i %a\n")
+	   ("at" "audio todo" entry (file+headline "audio.org" "Audio todo")
+	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")
 	   ;; For mu4e. From http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/ (see above)
-	   ("m" "todo mails" entry (file+headline "~/org/todo.org" "Mails")
-	    "* TODO [#A] %? :mails: \nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
-	   ("r" "todo terrain" entry (file+headline "~/org/todo.org" "Terrain")
-	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")
-	   ("l" "todo site lesc" entry (file+headline "~/org/sitelesc_todo.org" "New")
-	    "* TODO [#B] %i %? :site: \nSCHEDULED: %^t\n %a\n")
-	   ("c" "todo crem" entry (file+headline "~/org/todo.org" "Crem")
-	    "* TODO [#B] %i %? :crem: \nSCHEDULED: %^t\n %a\n")))
+	   ("g" "Trucs à geek")
+	   ("gn" "Geek" entry (file+headline "geek.org" "Geek notes")
+	    "* %i %? \n%a\n")
+	   ("gt" "geek todo" entry (file+headline "geek.org" "Geek notes")
+	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")))
 
 
    ;; Insert and follow links that have Org syntax not only in Org but in any Emacs buffer. 
@@ -428,21 +436,36 @@
     org-replace-disputed-keys nil
     org-export-html-postamble nil)
 
+   (add-hook 'org-mode-hook #'org-indent-mode)
+
     ;; Org-caldav configuration
 (require 'org-caldav)
 (setq
  org-caldav-url "https://framagenda.org/remote.php/dav/calendars/svictor"
- org-caldav-calendar-id "tests"
- org-caldav-inbox "/home/vic/bin/org_cal/vic_cal.org"
- org-caldav-files '("/home/vic/bin/org_cal/vic_mobile.org"))
+ org-caldav-calendar-id "personal"
+ ;; Todo : remplacer ~/org par concat org-directory
+ ;; Todo : vérifier si :inbox et :files sont tous deux nécessaires
+ org-caldav-inbox "/home/vic/org/victor_mobile.org"
+ org-caldav-files '("/home/vic/org/victor.org")
+ org-caldav-days-in-past "30"
+ org-caldav-calendars '((:calendar-id "personal")
+			(:calendar-id "personal_shared_by_ebreteque" :inbox "~/org/estelle.org" :files ("~/org/estelle.org"))
+			(:calendar-id "arthurics_shared_by_ebreteque" :inbox "~/org/kids.org" :files ("~/org/kids.org"))
+			) 
+				      
  
+ org-caldav-backup-file "/home/vic/org/autogeneres/org-caldav-backup.org"
+ org-caldav-save-directory "~/org/autogeneres"
 
+ org-caldav-delete-calendar-entries 'ask
+ org-caldav-delete-org-entries 'ask
+ )
    ;; this hook saves an ics file once an org-buffer is saved
-   (defun my-icalendar-agenda-export()
-     (when (string= (buffer-file-name) "/home/vic/org/vic.org")
-       (org-icalendar-export-to-ics)
-       (shell-command "cp /home/vic/org/vic.ics /var/lib/radicale/collections/vic/vic.ics")))
-   (add-hook 'after-save-hook 'my-icalendar-agenda-export)
+   ;; (defun my-icalendar-agenda-export()
+   ;;   (when (string= (buffer-file-name) "/home/vic/org/vic.org")
+   ;;     (org-icalendar-export-to-ics)
+   ;;     (shell-command "cp /home/vic/org/vic.ics /var/lib/radicale/collections/vic/vic.ics")))
+   ;; (add-hook 'after-save-hook 'my-icalendar-agenda-export)
 
    ;; Calfw provides a new calendar view
    (require 'calfw)
@@ -469,6 +492,7 @@
           (add-hook 'org-shiftleft-final-hook 'windmove-left)
           (add-hook 'org-shiftdown-final-hook 'windmove-down)
           (add-hook 'org-shiftright-final-hook 'windmove-right)
+(setq org-archive-location "~/org/archives/::%s_archive")
 
 ;;;;;;;;;;;;;; End Org-mode
 
@@ -628,9 +652,10 @@
  '(auto-save-list-file-prefix "~/.emacs.d/.autogeneres/auto-save-list/saves-")
  '(backup-directory-alist (quote ((".*" . "/home/vic/.emacs.d/backups/"))))
  '(beacon-color "#f2777a")
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
  '(custom-safe-themes
    (quote
-    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
  '(delete-selection-mode t)
  '(dired-dwim-target t)
  '(eww-search-prefix "https://www.google.com/search?q=")
@@ -641,7 +666,7 @@
  '(org-export-backends (quote (ascii html icalendar latex odt)))
  '(package-selected-packages
    (quote
-    (org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (org-caldav org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))

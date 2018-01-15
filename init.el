@@ -403,30 +403,34 @@
 	   ))
    ;;capture todo items using C-c c t
    (define-key global-map (kbd "C-c c") 'org-capture)
-   (setq org-default-notes-file (concat org-directory "/notes.org"))
+   (setq org-default-notes-file (concat org-directory "/general.org"))
 
    (setq org-capture-templates
 	 '(("e" "event" entry (file "victor.org")
 	    "* %^{Heading} %i %?\n %^t \n %a\n")
-	   ("t" "todo" entry (file+headline "general.org" "À faire")
+	   ("g" "general")
+	   ("gt" "Général todo" entry (file+headline "general.org" "À faire")
 	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")
-	   ("n" "notes" entry (file+headline "notes.org" "Notes")
+	   ("gn" "Général notes" entry (file+headline "general.org" "Notes")
 	    "* %i \n %a\n")
-	   ("m" "todo mails" entry (file+headline "mails.org" "Mails")
-	    "* TODO %? \nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))\n%a\n")
-	   ("a" "anthro" entry (file+headline "anthro.org" "Anthro")
+	   ("gm" "Général mails" entry (file+headline "general.org" "Mails")
+	    "* TODO %? :mail: \nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))\n%a\n")
+	   ("a" "Taf")
+	   ("tt" "Anthro todo" entry (file+headline "anthro.org" "À faire")
 	    "* TODO %i %?\n\nSCHEDULED: %^t\n %a\n")
+	   ("an" "Anthro notes" entry (file+headline "general.org" "Notes")
+	    "* %i \n %a\n")
 	   ("A" "Audio")
-	   ("an" "audio notes" entry (file+headline "audio.org" "Audio notes")
-	    "* %i %a\n")
-	   ("at" "audio todo" entry (file+headline "audio.org" "Audio todo")
+	   ("At" "Audio todo" entry (file+headline "audio.org" "À faire")
 	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")
+	   ("An" "Audio notes" entry (file+headline "audio.org" "Notes")
+	    "* %? %i %a\n")
 	   ;; For mu4e. From http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/ (see above)
-	   ("g" "Trucs à geek")
-	   ("gn" "Geek" entry (file+headline "geek.org" "Geek notes")
-	    "* %i %? \n%a\n")
-	   ("gt" "geek todo" entry (file+headline "geek.org" "Geek notes")
-	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")))
+	   ("G" "Geek")
+	   ("Gt" "Geek todo" entry (file+headline "geek.org" "À faire")
+	    "* TODO [#B] %i %?\nSCHEDULED: %^t\n %a\n")
+	   ("Gn" "Geek notes" entry (file+headline "geek.org" "Notes")
+	    "* %i %? \n%a\n")))
 
 
    ;; Insert and follow links that have Org syntax not only in Org but in any Emacs buffer. 
@@ -447,6 +451,8 @@
    (add-hook 'org-mode-hook #'org-indent-mode)
 
     ;; Org-caldav configuration
+(require 'auth-password-store)
+
 (require 'org-caldav)
 (setq
  org-caldav-url "https://framagenda.org/remote.php/dav/calendars/svictor"
@@ -500,7 +506,7 @@
           (add-hook 'org-shiftleft-final-hook 'windmove-left)
           (add-hook 'org-shiftdown-final-hook 'windmove-down)
           (add-hook 'org-shiftright-final-hook 'windmove-right)
-(setq org-archive-location "~/org/archives/::%s_archive")
+(setq org-archive-location "~/org/archive::datetree/")
 
 ;;;;;;;;;;;;;; End Org-mode
 
@@ -672,9 +678,10 @@
  '(message-citation-line-function (quote message-insert-formatted-citation-line))
  '(nxml-slash-auto-complete-flag t)
  '(org-export-backends (quote (ascii html icalendar latex odt)))
+ '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(package-selected-packages
    (quote
-    (org-caldav org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (auth-password-store org-caldav org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))

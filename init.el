@@ -435,7 +435,8 @@
 
    ;; Insert and follow links that have Org syntax not only in Org but in any Emacs buffer. 
    (global-set-key "\C-c L" 'org-insert-link-global)
-   (global-set-key "\C-c o" 'org-open-at-point-global)
+(global-set-key "\C-c o" 'org-open-at-point-global)
+(global-set-key "\C-c l" 'org-store-link)
 
    (setq
     org-agenda-files '("~/org")

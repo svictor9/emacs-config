@@ -414,7 +414,7 @@
 	   ("tn" "Trucs notes" entry (file+headline "trucs.org" "Notes")
 	    "* %i \n %a\n")
 	   ("tm" "Répondre aux mails" entry (file+headline "trucs.org" "Répondre aux mails")
-	    "* TODO %? :mail: \nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))\n%a\n")
+	    "* TODO %a\n :mail: \nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))\n")
 	   ("a" "Anthro")
 	   ("at" "Anthro todo" entry (file+headline "anthro.org" "À faire")
 	    "* TODO %i %?\n\nSCHEDULED: %^t\n %a\n")

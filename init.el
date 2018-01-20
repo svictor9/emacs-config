@@ -454,6 +454,7 @@
 
     ;; Org-caldav configuration
 (require 'auth-password-store)
+(auth-pass-enable)
 
 (require 'org-caldav)
 (setq

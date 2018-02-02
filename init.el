@@ -84,7 +84,7 @@
 			  "Victor A. Stoichita"))))
 	       ,(make-mu4e-context
 	     :name "prof"
-	     :enter-func (lambda () (mu4e-message "Switch to the Perso CNRS context"))
+	     :enter-func (lambda () (mu4e-message "Switch to the CNRS context"))
 	     :match-func (lambda (msg)
 			   (when msg
 			     (mu4e-message-contact-field-matches msg
@@ -93,7 +93,7 @@
 		       ( user-full-name . "Victor A. Stoichita" )
 		       ( mu4e-sent-folder . "/cnrs/Sent Items" )
 		       ( mu4e-drafts-folder . "/cnrs/Drafts" )
-		       ( mu4e-trash-folder . "/cnrs/Trash" )
+		       ( mu4e-trash-folder . "/cnrs/Deleted Items" )
 		       ( mu4e-refile-folder . "/cnrs/Archives" )
 		       ( mu4e-compose-signature .
 						(concat
@@ -311,6 +311,13 @@
 	 message-sendmail-f-is-evil nil                
 	 mail-envelope-from 'header
 	 message-sendmail-envelope-from 'header)
+
+;; Helm-mu, notamment pour la recherche de contacts
+(autoload 'helm-mu "helm-mu" "" t)
+(autoload 'helm-mu-contacts "helm-mu" "" t)
+;; Only contacts who sent me email…
+(setq helm-mu-contacts-personal t)
+
 ;;;;;;;;;;;;;;; End Mu4E
 
 ;; Mu4e et org
@@ -511,6 +518,9 @@
           (add-hook 'org-shiftright-final-hook 'windmove-right)
 (setq org-archive-location "~/org/archive::datetree/")
 
+(require 'org-mime)
+(setq org-mime-library 'mml)
+
 ;;;;;;;;;;;;;; End Org-mode
 
 ;; Never ask long confirmations
@@ -683,7 +693,7 @@
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(package-selected-packages
    (quote
-    (auth-password-store org-caldav org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (helm-mu auth-password-store org-caldav org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))

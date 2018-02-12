@@ -598,13 +598,30 @@
    (setq dired-listing-switches "-Al --si --time-style long-iso")
    (setq delete-by-moving-to-trash t)
 
+;; PHP-mode
+
+(autoload 'php-mode "php-mode" "Major mode for editing PHP code." t)
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
+(setq 'php-manual-path "~/bin/php_manual/")
+
+;; Enable autocompletion
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (require 'company-php)
+             (company-mode t)
+             (ac-php-core-eldoc-setup) ;; enable eldoc
+             (make-local-variable 'company-backends)
+             (add-to-list 'company-backends 'company-ac-php-backend)))
+
+;; Use local manual
+(setq php-manual-path "~/bin/php_manual")
+
 ;;;; Web-mode 
    (require 'web-mode)
    (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
    (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
    (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
-   ;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-   (add-to-list 'auto-mode-alist '("\\.php$" . my-setup-php))
    (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
    (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
    (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
@@ -618,32 +635,31 @@
                   ac-source-words-in-same-mode-buffers
                   ac-source-dictionary))))
 
-   (defun my-setup-php ()
-     (web-mode)
-     ;; make these variables local
-     (make-local-variable 'web-mode-code-indent-offset)
-     (make-local-variable 'web-mode-markup-indent-offset)
-     (make-local-variable 'web-mode-css-indent-offset)
+;; Disable for now (2018-02+08) as it does not seem to work
+   ;; (defun my-setup-php ()
+   ;;   (web-mode)
+   ;;   ;; make these variables local
+   ;;   (make-local-variable 'web-mode-code-indent-offset)
+   ;;   (make-local-variable 'web-mode-markup-indent-offset)
+   ;;   (make-local-variable 'web-mode-css-indent-offset)
 
-     ;; set indentation, can set different indentation level for different code type
-     (setq web-mode-code-indent-offset 4)
-     (setq web-mode-css-indent-offset 2)
-     (setq web-mode-markup-indent-offset 2)
+   ;;   ;; set indentation, can set different indentation level for different code type
+   ;;   (setq web-mode-code-indent-offset 4)
+   ;;   (setq web-mode-css-indent-offset 2)
+   ;;   (setq web-mode-markup-indent-offset 2)
 
-     ;; Enable flycheck
-     (flycheck-select-checker my-php)
-     (flycheck-mode t))
-
-      ;; Flycheck redefined for web mode
-      (require 'flycheck)
-      (flycheck-define-checker my-php
-	"A PHP syntax checker using the PHP command line interpreter."
-	:command ("php" "-l" "-d" "error_reporting=E_ALL" "-d" "display_errors=1"
-		  "-d" "log_errors=0" source)
-	:error-patterns
-	((error line-start (or "Parse" "Fatal" "syntax") " error" (any ":" ",") " "
-		(message) " in " (file-name) " on line " line line-end))
-	:modes (php-mode php+-mode web-mode))
+   ;;   ;; Enable flycheck
+   ;;   (require 'flycheck)
+   ;;   (flycheck-define-checker my-php
+   ;;     "A PHP syntax checker using the PHP command line interpreter."
+   ;;     :command ("php" "-l" "-d" "error_reporting=E_ALL" "-d" "display_errors=1"
+   ;; 		 "-d" "log_errors=0" source)
+   ;;     :error-patterns
+   ;;     ((error line-start (or "Parse" "Fatal" "syntax") " error" (any ":" ",") " "
+   ;; 	       (message) " in " (file-name) " on line " line line-end))
+   ;;     :modes (php-mode php+-mode web-mode)
+   ;;     (flycheck-select-checker my-php)
+   ;;     (flycheck-mode t)))
 
 ;; Add path to buffer name
 (require 'uniquify)
@@ -693,7 +709,7 @@
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(package-selected-packages
    (quote
-    (helm-mu auth-password-store org-caldav org-plus-contrib pdf-tools org-mime magit comment-dwim-2 web-mode undo-tree swiper realgud python-environment py-autopep8 php-mode multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
+    (company-php iedit php-mode web-mode helm-mu auth-password-store org-caldav org-plus-contrib pdf-tools org-mime magit comment-dwim-2 undo-tree swiper realgud python-environment py-autopep8 multi-term less-css-mode helm-projectile helm-company flycheck elpy company-quickhelp color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     ("zz-old" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "__pycache__")))

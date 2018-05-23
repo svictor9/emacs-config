@@ -151,6 +151,8 @@
 
    (global-set-key (kbd "C-ç") 'comment-dwim-2)
 
+   (global-set-key (kbd "C-%") 'other-window)
+
    ;; Rebind M-q to the org function which seems to work better in mails etc.
    (global-set-key (kbd "M-q") 'org-fill-paragraph)
 		
@@ -219,7 +221,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (pdf-tools web-mode undo-tree swiper realgud python-environment py-autopep8 org-mime multi-term magit less-css-mode iedit helm-projectile helm-mu helm-company flycheck elpy company-quickhelp company-php comment-dwim-2 color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw-org calfw auto-complete auth-password-store))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

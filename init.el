@@ -11,7 +11,7 @@
 (load-file "~/.emacs.d/orgmode_init.el")
 
 (autoload 'web-mode "web-mode" "Web Mode for html and mixed files" t)
-(autoload 'php-mode "php-mode" "Php-mode for editing PHP code" t)
+(autoload 'php-mode "~/.emacs.d/php_init.el" "Php-mode for editing PHP code" t)
 (autoload 'helm-mu "helm-mu" "Use Helm with mu" t)
 (autoload 'helm-mu-contacts "helm-mu" "Helm-mu for contact search" t)
 					;(autoload 'python-mode "python-mode" "Elpy mode for Python" t)
@@ -113,19 +113,6 @@
                   ac-source-words-in-same-mode-buffers
                   ac-source-dictionary))))
 
-;; Use local manual in php-mode
-(setq php-manual-path "~/bin/php_manual/")
-
-;; Enable autocompletion in php-mode
-(add-hook 'php-mode-hook
-          '(lambda ()
-             (require 'company-php)
-             (company-mode t)
-             (ac-php-core-eldoc-setup) ;; enable eldoc
-             (make-local-variable 'company-backends)
-             (add-to-list 'company-backends 'company-ac-php-backend)))
-;; Always open speedbar in php
-(setq php-mode-speedbar-open t)
 
 ;; prefer flycheck over flymake in elpy
 (add-hook 'elpy-mode-hook 'flycheck-mode)
@@ -161,6 +148,9 @@
 (global-set-key "\M-n" 'forward-paragraph)
 (global-set-key "\M-p" 'backward-paragraph)
 
+;; 'dabbrev-expand is one of the functions in hippie-expand-try-functions-list anyway
+(global-set-key "\M-/" 'hippie-expand)
+
 (add-hook 'after-init-hook 'global-company-mode)
 (eval-after-load 'company
   '(progn
@@ -179,7 +169,6 @@
 (setq multi-term-program "/bin/bash")
 (global-set-key (kbd "<f8>") 'multi-term-dedicated-toggle)
 (setq multi-term-dedicated-select-after-open-p t)
-
 
 
 ;;;;; Dired
@@ -223,9 +212,42 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   (vector "#d6d6d6" "#c82829" "#718c00" "#eab700" "#4271ae" "#8959a8" "#3e999f" "#4d4d4c"))
+ '(beacon-color "#c82829")
+ '(custom-safe-themes
+   (quote
+    ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
+ '(fci-rule-color "#d6d6d6")
+ '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(package-selected-packages
    (quote
-    (web-mode undo-tree swiper realgud python-environment py-autopep8 pdf-tools org-mime multi-term magit less-css-mode iedit helm-projectile helm-mu helm-company flycheck elpy company-quickhelp company-php comment-dwim-2 color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw-org calfw auto-complete auth-password-store))))
+    (dumb-jump web-mode undo-tree swiper realgud python-environment py-autopep8 pdf-tools org-mime multi-term magit less-css-mode iedit helm-projectile helm-mu helm-company flycheck elpy company-quickhelp company-php comment-dwim-2 color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw-org calfw auto-complete auth-password-store)))
+ '(projectile-mode t nil (projectile))
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#c82829")
+     (40 . "#f5871f")
+     (60 . "#eab700")
+     (80 . "#718c00")
+     (100 . "#3e999f")
+     (120 . "#4271ae")
+     (140 . "#8959a8")
+     (160 . "#c82829")
+     (180 . "#f5871f")
+     (200 . "#eab700")
+     (220 . "#718c00")
+     (240 . "#3e999f")
+     (260 . "#4271ae")
+     (280 . "#8959a8")
+     (300 . "#c82829")
+     (320 . "#f5871f")
+     (340 . "#eab700")
+     (360 . "#718c00"))))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

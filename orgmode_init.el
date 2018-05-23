@@ -120,8 +120,14 @@
  org-caldav-save-directory "~/org/autogeneres"
 
  org-caldav-delete-calendar-entries 'ask
- org-caldav-delete-org-entries 'ask
+ org-caldav-delete-org-entries 'ask 
  )
+
+(defun my-org-caldav-sync ()
+  "Save after sync if changed."
+  (interactive)
+  (org-caldav-sync)
+  (save-some-buffers))
 
 ;; Calfw provides a new calendar view
 (require 'calfw)

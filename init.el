@@ -1,12 +1,12 @@
 ;; Packages
-   (require 'package)
-   (add-to-list 'load-path "~/.emacs.d/my/")
-   (add-to-list 'load-path "~/.emacs.d/elpa/")
-   (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			    ;; ("marmalade" . "https://marmalade-repo.org/packages/")
-			    ("melpa" . "https://melpa.org/packages/")
-			    ("org" . "http://orgmode.org/elpa/")))
-   (package-initialize)
+(require 'package)
+(add-to-list 'load-path "~/.emacs.d/my/")
+(add-to-list 'load-path "~/.emacs.d/elpa/")
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ;; ("marmalade" . "https://marmalade-repo.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")
+			 ("org" . "http://orgmode.org/elpa/")))
+(package-initialize)
 
 (load-file "~/.emacs.d/orgmode_init.el")
 
@@ -14,7 +14,7 @@
 (autoload 'php-mode "php-mode" "Php-mode for editing PHP code" t)
 (autoload 'helm-mu "helm-mu" "Use Helm with mu" t)
 (autoload 'helm-mu-contacts "helm-mu" "Helm-mu for contact search" t)
-;(autoload 'python-mode "python-mode" "Elpy mode for Python" t)
+					;(autoload 'python-mode "python-mode" "Elpy mode for Python" t)
 (autoload 'mu4e "~/.emacs.d/mu4e_init.el" "Mu email config" t)
 (global-set-key (kbd "C-c m") 'mu4e)
 (add-hook 'python-mode-hook 'elpy-mode)
@@ -30,58 +30,61 @@
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
 ;; Theme
-   (load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'sanityinc-tomorrow-night t)
 
 ;; Helm mode
-   (require 'helm-config)
-   (global-set-key (kbd "M-x") 'helm-M-x)
-   (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-   (global-set-key (kbd "C-x C-f") 'helm-find-files)
-   (global-set-key (kbd "C-x f") 'helm-for-files)
-   (global-set-key (kbd "C-x C-b") 'helm-mini)
-   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-   (setq helm-ff-skip-boring-files t)
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x f") 'helm-for-files)
+(global-set-key (kbd "C-x C-b") 'helm-mini)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(setq helm-ff-skip-boring-files t)
 
-   (add-hook 'eshell-mode-hook
-	     (lambda ()
-	       (eshell-cmpl-initialize)
-	       (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
-	       (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)))
+;; in Helm-mu only contacts who sent me email
+(setq helm-mu-contacts-personal t)
 
-   (defun pcomplete/sudo ()
-     (let ((prec (pcomplete-arg 'last -1)))
-       (cond ((string= "sudo" prec)
-	      (while (pcomplete-here*
-		      (funcall pcomplete-command-completion-function)
-		      (pcomplete-arg 'last) t))))))
-   (helm-mode 1)
-   (helm-autoresize-mode t)
+(add-hook 'eshell-mode-hook
+	  (lambda ()
+	    (eshell-cmpl-initialize)
+	    (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
+	    (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)))
 
-   ;; Add attachments to emails with helm-locate
-   (helm-add-action-to-source "Attach to Email" #'mml-attach-file helm-source-locate)
+(defun pcomplete/sudo ()
+  (let ((prec (pcomplete-arg 'last -1)))
+    (cond ((string= "sudo" prec)
+	   (while (pcomplete-here*
+		   (funcall pcomplete-command-completion-function)
+		   (pcomplete-arg 'last) t))))))
+(helm-mode 1)
+(helm-autoresize-mode t)
 
-   ;; Projectile et helm-projectile
-   ;; (projectile-mode)
-   (eval-after-load 'projectile-mode 'helm-projectile-on)
-   ;; (helm-projectile-on)
-   (setq projectile-completion-system 'helm)
-   (setq projectile-switch-project-action 'helm-projectile-find-file)
-   (setq projectile-globally-ignored-directories (quote
-					  ("zz-old" ".git" ".hg" ".bzr" ".svn" ".stack-work" "__pycache__")))
-   (setq projectile-globally-ignored-file-suffixes (quote ("~" "#" ".bak")))
+;; Add attachments to emails with helm-locate
+(helm-add-action-to-source "Attach to Email" #'mml-attach-file helm-source-locate)
+
+;; Projectile et helm-projectile
+;; (projectile-mode)
+(eval-after-load 'projectile-mode 'helm-projectile-on)
+;; (helm-projectile-on)
+(setq projectile-completion-system 'helm)
+(setq projectile-switch-project-action 'helm-projectile-find-file)
+(setq projectile-globally-ignored-directories (quote
+					       ("zz-old" ".git" ".hg" ".bzr" ".svn" ".stack-work" "__pycache__")))
+(setq projectile-globally-ignored-file-suffixes (quote ("~" "#" ".bak")))
 
 
 ;; Show entire parenthesis block (alternative: mixed: default: parenthesis)
-   (setq show-paren-style 'mixed)
+(setq show-paren-style 'mixed)
 
 ;; Autofill
-   ;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
-   (add-hook 'fill-nobreak-predicate 'fill-french-nobreak-p)
-   (add-hook 'fill-nobreak-predicate 'fill-single-word-nobreak-p)
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'fill-nobreak-predicate 'fill-french-nobreak-p)
+(add-hook 'fill-nobreak-predicate 'fill-single-word-nobreak-p)
 
-   ;; Remove auto-fill on text modes (rely on wrapping modes)
-   ;; (remove-hook 'text-mode-hook #'turn-on-auto-fill)
-   ;; (setq sentence-end-double-space nil)
+;; Remove auto-fill on text modes (rely on wrapping modes)
+;; (remove-hook 'text-mode-hook #'turn-on-auto-fill)
+;; (setq sentence-end-double-space nil)
 
 (defvar V-syntax-table
   (let ((table (make-syntax-table)))
@@ -97,8 +100,8 @@
 (setq sentence-end-double-space nil)
 
 ;; <RET> or Ctrl-o to insert hard new lines (never filled)
-   (setq-default use-hard-newlines t)
-   (setq mu4e-compose-format-flowed t)
+(setq-default use-hard-newlines t)
+(setq mu4e-compose-format-flowed t)
 
 
 
@@ -121,11 +124,12 @@
              (ac-php-core-eldoc-setup) ;; enable eldoc
              (make-local-variable 'company-backends)
              (add-to-list 'company-backends 'company-ac-php-backend)))
+;; Always open speedbar in php
+(setq php-mode-speedbar-open t)
 
-
- ;prefer flycheck over flymake
+;; prefer flycheck over flymake in elpy
 (add-hook 'elpy-mode-hook 'flycheck-mode)
-	  
+
 (setq elpy-rpc-backend "jedi")
 
 ;; Never ask long confirmations
@@ -133,23 +137,23 @@
 
 ;; Alternate PDF renderer
 (pdf-tools-install)
- 
+
 ;;;;;;; Some custom keybindings
 
-   (progn
-     ;; set arrow keys in isearch. left/right is backward/forward, up/down is history. press Return to exit
-     (define-key isearch-mode-map (kbd "<up>") 'isearch-ring-retreat )
-     (define-key isearch-mode-map (kbd "<down>") 'isearch-ring-advance )
-     (define-key isearch-mode-map (kbd "<left>") 'isearch-repeat-backward) ; single key, useful
-     (define-key isearch-mode-map (kbd "<right>") 'isearch-repeat-forward) ; single key, useful
-    )
+(progn
+  ;; set arrow keys in isearch. left/right is backward/forward, up/down is history. press Return to exit
+  (define-key isearch-mode-map (kbd "<up>") 'isearch-ring-retreat )
+  (define-key isearch-mode-map (kbd "<down>") 'isearch-ring-advance )
+  (define-key isearch-mode-map (kbd "<left>") 'isearch-repeat-backward) ; single key, useful
+  (define-key isearch-mode-map (kbd "<right>") 'isearch-repeat-forward) ; single key, useful
+  )
 
-   ;; Ability to revert splite pane config
-   (winner-mode 1)
-   (global-set-key (kbd "<f5>") 'winner-undo)
-   (global-set-key (kbd "<f6>") 'winner-redo)
+;; Ability to revert splite pane config
+(winner-mode 1)
+(global-set-key (kbd "<f5>") 'winner-undo)
+(global-set-key (kbd "<f6>") 'winner-redo)
 
-   (global-set-key (kbd "C-ç") 'comment-dwim-2)
+(global-set-key (kbd "C-ç") 'comment-dwim-2)
 
    (global-set-key (kbd "C-%") 'other-window)
 
@@ -159,17 +163,20 @@
    (global-set-key "\M-n" 'forward-paragraph)
    (global-set-key "\M-p" 'backward-paragraph)
 
-   (add-hook 'after-init-hook 'global-company-mode)
-   (eval-after-load 'company
-     '(progn
-	(define-key company-mode-map (kbd "C-ê") 'helm-company)
-	(define-key company-active-map (kbd "C-ê") 'helm-company)))
+(global-set-key "\M-n" 'forward-paragraph)
+(global-set-key "\M-p" 'backward-paragraph)
 
-   ;; Windmove allows switching windows with shift+arrows
-   (when (fboundp 'windmove-default-keybindings)
-     (windmove-default-keybindings))
+(add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company
+  '(progn
+     (define-key company-mode-map (kbd "C-ê") 'helm-company)
+     (define-key company-active-map (kbd "C-ê") 'helm-company)))
 
-   (global-set-key (kbd "C-x g") 'magit-status)
+;; Windmove allows switching windows with shift+arrows
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
+(global-set-key (kbd "C-x g") 'magit-status)
 
 
 ;;;;; Multi-term
@@ -181,16 +188,16 @@
 
 
 ;;;;; Dired
-   ;; -si for human readable size time-style for yyyy-mm-dd
-   (setq dired-listing-switches "-Al --si --time-style long-iso")
-   (setq delete-by-moving-to-trash t)
+;; -si for human readable size time-style for yyyy-mm-dd
+(setq dired-listing-switches "-Al --si --time-style long-iso")
+(setq delete-by-moving-to-trash t)
 
 (setq nxml-slash-auto-complete-flag t)
 ;; Add path to buffer name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse) ; path after file name to ease autocompletion
 
-; For root on localhost through tramp. Avoid being asked for password on restart
+					; For root on localhost through tramp. Avoid being asked for password on restart
 (setq tramp-verbose 6)
 (setq tramp-default-method "ssh")
 

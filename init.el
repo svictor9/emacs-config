@@ -142,8 +142,13 @@
 
 (global-set-key (kbd "C-ç") 'comment-dwim-2)
 
-;; Rebind M-q to the org function which seems to work better in mails etc.
-(global-set-key (kbd "M-q") 'org-fill-paragraph)
+   (global-set-key (kbd "C-%") 'other-window)
+
+   ;; Rebind M-q to the org function which seems to work better in mails etc.
+   (global-set-key (kbd "M-q") 'org-fill-paragraph)
+		
+   (global-set-key "\M-n" 'forward-paragraph)
+   (global-set-key "\M-p" 'backward-paragraph)
 
 (global-set-key "\M-n" 'forward-paragraph)
 (global-set-key "\M-p" 'backward-paragraph)
@@ -222,6 +227,7 @@
     ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
  '(fci-rule-color "#d6d6d6")
  '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
+ '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
     (dumb-jump web-mode undo-tree swiper realgud python-environment py-autopep8 pdf-tools org-mime multi-term magit less-css-mode iedit helm-projectile helm-mu helm-company flycheck elpy company-quickhelp company-php comment-dwim-2 color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw-org calfw auto-complete auth-password-store)))

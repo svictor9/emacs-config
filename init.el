@@ -174,7 +174,7 @@
 (setq multi-term-program "/bin/bash")
 (global-set-key (kbd "<f8>") 'multi-term-dedicated-toggle)
 (setq multi-term-dedicated-select-after-open-p t)
-
+(setq term-scroll-to-bottom-on-output t)
 
 ;;;;; Dired
 ;; -si for human readable size time-style for yyyy-mm-dd

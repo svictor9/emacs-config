@@ -103,8 +103,6 @@
 (setq-default use-hard-newlines t)
 (setq mu4e-compose-format-flowed t)
 
-
-
 ;; Auto-complete in web-mode is context-aware
 (setq web-mode-ac-sources-alist
       '(("css" . (ac-source-words-in-buffer ac-source-css-property))
@@ -122,8 +120,19 @@
 ;; Never ask long confirmations
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; Alternate PDF renderer
+;; Alternate PDF rederer
+;; initialise
 (pdf-tools-install)
+;; open pdfs scaled to fit page
+(setq-default pdf-view-display-size 'fit-page)
+;; automatically annotate highlights
+(setq pdf-annot-activate-created-annotations t)
+;; use normal isearch
+(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+
+;; Use pdf-tools to render Lilypond pdfs
+(setq LilyPond-pdf-command "ec")
+
 
 ;;;;;;; Some custom keybindings
 

@@ -141,6 +141,17 @@
 ;; Compose messages in new frame
 (setq mu4e-compose-in-new-frame t)
 
+;; Send mails in html also
+(setq org-mu4e-convert-to-html t)
+(defun htmlize-and-send ()
+  "When in an org-mu4e-compose-org-mode message, htmlize and send it."
+  (interactive)
+  (when (member 'org~mu4e-mime-switch-headers-or-body post-command-hook)
+    (org-mime-htmlize)
+    (org-mu4e-compose-org-mode)
+    (mu4e-compose-mode)
+    (message-send-and-exit)))
+
 ;; the maildirs you use frequently; access them with 'j' ('jump')
 (setq   mu4e-maildir-shortcuts
 	'(("/svictor/INBOX"     . ?v)

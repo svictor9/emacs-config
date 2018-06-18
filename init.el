@@ -239,7 +239,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (dumb-jump web-mode undo-tree swiper realgud python-environment py-autopep8 pdf-tools org-mime multi-term magit less-css-mode iedit helm-projectile helm-mu helm-company flycheck elpy company-quickhelp company-php comment-dwim-2 color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw-org calfw auto-complete auth-password-store)))
+    (json-mode dumb-jump web-mode undo-tree swiper realgud python-environment py-autopep8 pdf-tools org-mime multi-term magit less-css-mode iedit helm-projectile helm-mu helm-company flycheck elpy company-quickhelp company-php comment-dwim-2 color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized calfw-org calfw auto-complete auth-password-store)))
  '(projectile-mode t nil (projectile))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map

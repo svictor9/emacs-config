@@ -21,8 +21,7 @@
 	   ;; leave-func not defined
 	   :match-func (lambda (msg)
 			 (when msg
-			   (mu4e-message-contact-field-matches msg
-							       :to "svictor@svictor.net")))
+			   (string-match-p "^/svictor" (mu4e-message-field msg :maildir))))
 	   :vars '(  ( user-mail-address . "svictor@svictor.net"  )
 		     ( user-full-name . "Victor A. Stoichita" )
 		     ( mu4e-sent-folder . "/svictor/INBOX/.Sent" )
@@ -37,8 +36,7 @@
 	   :enter-func (lambda () (mu4e-message "Switch to the CNRS context"))
 	   :match-func (lambda (msg)
 			 (when msg
-			   (mu4e-message-contact-field-matches msg
-							       :to "victor.stoichita@cnrs.fr")))
+			   (string-match-p "^/cnrs" (mu4e-message-field msg :maildir))))
 	   :vars '(  ( user-mail-address	. "victor.stoichita@cnrs.fr" )
 		     ( user-full-name . "Victor A. Stoichita" )
 		     ( mu4e-sent-folder . "/cnrs/Sent Items" )
@@ -58,8 +56,7 @@
 	   ;; leave-func not defined
 	   :match-func (lambda (msg)
 			 (when msg
-			   (mu4e-message-contact-field-matches msg
-							       :to "victor@svictor.net")))
+			   (string-match-p "^/victor" (mu4e-message-field msg :maildir))))
 	   :vars '(  ( user-mail-address . "victor@svictor.net"  )
 		     ( user-full-name . "Victor A. Stoichita" )
 		     ( mu4e-sent-folder . "/victor/INBOX/.Sent" )
@@ -75,8 +72,7 @@
 	   ;; leave-func not defined
 	   :match-func (lambda (msg)
 			 (when msg
-			   (mu4e-message-contact-field-matches msg
-							       :to "vs@svictor.net")))
+			   (string-match-p "^/vs" (mu4e-message-field msg :maildir))))
 	   :vars '(  ( user-mail-address . "vs@svictor.net"  )
 		     ( user-full-name . "Victor" )
 		     ( mu4e-sent-folder . "/vs/INBOX/.Sent" )
@@ -91,7 +87,8 @@
 
 ;; start with the first (default) context;
 ;; default is to ask-if-none (ask when there's no context yet, and none match)
-(setq mu4e-context-policy 'pick-first)
+;; (setq mu4e-context-policy 'pick-first)
+(setq mu4e-context-policy 'ask-if-none)
 
 ;; No auto signature, use C-c C-w to include one
 (setq mu4e-compose-signature-auto-include nil)
@@ -142,7 +139,7 @@
 (setq mu4e-compose-in-new-frame t)
 
 ;; Send mails in html also
-(setq org-mu4e-convert-to-html t)
+;; (setq org-m4ue-convert-to-html t)
 (defun htmlize-and-send ()
   "When in an org-mu4e-compose-org-mode message, htmlize and send it."
   (interactive)

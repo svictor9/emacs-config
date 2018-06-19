@@ -186,9 +186,39 @@
 (setq term-scroll-to-bottom-on-output t)
 
 ;;;;; Dired
+(add-hook 'dired-load-hook
+	  (lambda ()
+	    ;; Set dired-x global variables here.  For example:
+	    ;; (setq dired-guess-shell-gnutar "gtar")
+	    (setq dired-x-hands-off-my-keys nil)
+	    (load "dired-x")
+	    ))
+
+;; autoload dired-jump to work before a dired buffer is opened
+;; In any file buffer, Alt+x dired-jump [Ctrl+x Ctrl+j] to jump to the directory of current buffer.
+(autoload 'dired-jump "dired-x"
+  "Jump to Dired buffer corresponding to current buffer." t)
+(autoload 'dired-jump-other-window "dired-x"
+  "Like \\[dired-jump] (dired-jump) but in other window." t)
+(define-key global-map "\C-x\C-j" 'dired-jump)
+(define-key global-map "\C-x4\C-j" 'dired-jump-other-window)
+
+(defun vic-dired-mode-setup ()
+  "to be run as hook for `dired-mode'."
+  ;; normally bound to (
+  (dired-hide-details-mode 1))
+(add-hook 'dired-mode-hook 'vic-dired-mode-setup)
+
 ;; -si for human readable size time-style for yyyy-mm-dd
 (setq dired-listing-switches "-Al --si --time-style long-iso")
 (setq delete-by-moving-to-trash t)
+
+;; allow dired to delete or copy dir without asking 
+(setq dired-recursive-copies (quote always)) ; “always” means no asking
+(setq dired-recursive-deletes (quote top)) ; “top” means ask once
+
+;; copy from one dired buffer to the other one
+(setq dired-dwim-target t)
 
 (setq nxml-slash-auto-complete-flag t)
 ;; Add path to buffer name
@@ -202,7 +232,6 @@
 (show-paren-mode 1) ; turn on paren match highlighting
 ;; (setq show-paren-style 'expression) ; highlight entire bracket expression
 (delete-selection-mode)
-(setq dired-dwim-target t)
 (setq shift-select-mode t)
 (tool-bar-mode -1)
 (setq transient-mark-mode t)
